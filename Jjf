@@ -1,0 +1,32 @@
+// ==UserScript==
+// @name         Bypass Hcaptcha
+// @namespace    http://tampermonkey.net/
+// @version      1.0
+// @description  DUMANODCM
+// @author       You
+// @match        *://*/*
+// @grant        none
+// ==/UserScript==
+
+(function() {
+    'use strict';
+
+    function unlockButton() {
+        const targetButton = document.getElementById('invisibleCaptchaShortlink');
+
+        if (targetButton && targetButton.hasAttribute('disabled')) {
+
+            targetButton.removeAttribute('disabled');
+
+            console.log('✅ Đã bỏ disabled nút');
+        }
+    }
+
+    window.addEventListener('load', unlockButton);
+
+    const observer = new MutationObserver(unlockButton);
+    observer.observe(document.body, {
+        childList: true, 
+        subtree: true    
+    });
+})();
